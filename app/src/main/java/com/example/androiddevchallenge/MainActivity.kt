@@ -19,27 +19,26 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.androiddevchallenge.ui.theme.MyTheme
-import dev.chrisbanes.accompanist.glide.GlideImage
-import androidx.core.content.ContextCompat.startActivity
-
-import android.content.Intent
-import androidx.compose.ui.text.style.TextOverflow
-
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,96 +77,14 @@ fun AppBody(pets: List<Pet>) {
     for (pet in pets) {
         Spacer(modifier = Modifier.padding(4.dp))
         PetCard(
-            pet = pet, modifier = Modifier
+            pet = pet,
+            modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.White)
                 .padding(15.dp)
         )
     }
 }
-
-@Composable
-fun PetCard(pet: Pet, modifier: Modifier = Modifier) {
-
-
-    Row(modifier = modifier.clickable {
-        val context = BaseApplication.getContext()
-        val intent = Intent(context, DetailsActivity::class.java)
-        startActivity(context, intent, null)
-    }) {
-        Column(
-            Modifier
-                .width(110.dp)
-                .height(80.dp),
-        ) {
-//            Image(
-//                painter = painterResource(R.drawable.ic_launcher_background),
-//                contentDescription = "",
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .fillMaxHeight()
-//                    .clip(RoundedCornerShape(7.dp)),
-//                contentScale = ContentScale.FillBounds
-//            )
-            GlideImage(
-                data = pet.image,
-                contentDescription = "review image",
-                modifier = Modifier.clip(RoundedCornerShape(5.dp)),
-            )
-        }
-        Column(Modifier.padding(horizontal = 10.dp)) {
-            Text(
-                text = pet.name,
-                color = Color(0xFF000000),
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .padding(top = 3.dp, bottom = 5.dp)
-                    .fillMaxWidth()
-            )
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-
-                Image(
-                    painter = if (pet.gender == 1) {
-                        painterResource(R.drawable.ic_item_gender_male)
-                    } else {
-                        painterResource(R.drawable.ic_item_gender_female)
-                    },
-                    contentDescription = "",
-                    modifier = if (pet.gender == 1) {
-                        Modifier
-                            .width(16.dp)
-                            .height(16.dp)
-                            .padding(end = 5.dp)
-                    } else {
-                        Modifier
-                            .width(17.dp)
-                            .height(17.dp)
-                            .padding(end = 5.dp)
-                    }
-                )
-
-                Text(
-                    text = pet.variety, color = if (pet.gender == 1) {
-                        Color(0x905b79fe)
-                    } else {
-                        Color(0x90f66c63)
-                    }, fontSize = 12.sp
-                )
-            }
-
-            Text(
-                text = pet.description,
-                color = Color(0x60000000),
-                fontSize = 12.sp,
-                modifier = Modifier.padding(top = 3.dp),
-                overflow = TextOverflow.Clip,
-                maxLines = 2
-            )
-        }
-    }
-}
-
 
 // Start building your app here!
 @Composable
@@ -197,13 +114,15 @@ fun MyApp() {
                     .fillMaxWidth()
                     .background(Color.White)
             ) {
-                Button(onClick = {
-                    Toast.makeText(BaseApplication.getContext(), "添加失败", Toast.LENGTH_SHORT).show()
-                }, modifier = Modifier.padding(15.dp)) {
+                Button(
+                    onClick = {
+                        Toast.makeText(BaseApplication.getContext(), "添加失败", Toast.LENGTH_SHORT).show()
+                    },
+                    modifier = Modifier.padding(15.dp)
+                ) {
                     Text(text = "Find out more.")
                 }
             }
-
         }
     }
 }
@@ -286,8 +205,6 @@ fun getPets(): List<Pet> {
             "https://g.petango.com/photos/401/ef5ae40c-07d8-4532-b415-8df57a991048_TN1.jpg"
         )
     )
-
-
 
     return pets
 }
