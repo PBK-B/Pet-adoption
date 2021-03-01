@@ -79,6 +79,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     implementation 'androidx.ui:ui-layout:0.1.0-dev13'
-    implementation "dev.chrisbanes.accompanist:accompanist-coil:0.6.1"
     implementation "dev.chrisbanes.accompanist:accompanist-glide:0.6.1"
 }
