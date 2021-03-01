@@ -187,9 +187,9 @@ fun getPets(): List<Pet> {
     pets.add(
         Pet(
             "MAMA KITTY",
-            0,
+            2,
             "Domestic Shorthair / Mix",
-            "ADOPTION REQUIREMENTS-- NO OTHER PETS PLEASE (I HAVE FIV)-- ADULTS ONLY-- QUIET HOME-- INDOORS ONLYHello, Linus here! It seems as though the beginning of my life was a little bit rough and, because of this, it has taken me quite some time to enjoy the company of humans and be comfortable around them. I was placed in foster care with a lovely carer who accepted me as I was and helped me to become the affectionate and happy man I am today. When I first enter my new home, it is likely that you will find me hiding in or under beds or other furniture, and my new family will need to have patience and give me time to adjust to my home. Sitting near me and talking to me helps, although I will greet you with a hiss at first. When I get to know you though, I will become a little kitty magnet. You get home? I'm there. You sit on the couch? Here I am. Your laps free? Not anymore! I even became a tad playful before my time in foster care ended, so look out!",
+            "MAMA KITTY is a sweet, 4 year old girl with a super soft coat. She is very shy and will need a very patient person to allow her the time that she’ll need to feel safe and secure. She is a beauty and a very special and sensitive soul. She is great with other cats--we'd love to see her in a home where she can get some individual attention.",
             label,
             "https://g.petango.com/photos/401/60b7bdea-b694-42de-a43d-31872d7b2ba7.jpg"
         )
@@ -198,9 +198,9 @@ fun getPets(): List<Pet> {
     pets.add(
         Pet(
             "Sunny",
-            0,
+            2,
             "Domestic Shorthair / Mix",
-            "ADOPTION REQUIREMENTS-- NO OTHER PETS PLEASE (I HAVE FIV)-- ADULTS ONLY-- QUIET HOME-- INDOORS ONLYHello, Linus here! It seems as though the beginning of my life was a little bit rough and, because of this, it has taken me quite some time to enjoy the company of humans and be comfortable around them. I was placed in foster care with a lovely carer who accepted me as I was and helped me to become the affectionate and happy man I am today. When I first enter my new home, it is likely that you will find me hiding in or under beds or other furniture, and my new family will need to have patience and give me time to adjust to my home. Sitting near me and talking to me helps, although I will greet you with a hiss at first. When I get to know you though, I will become a little kitty magnet. You get home? I'm there. You sit on the couch? Here I am. Your laps free? Not anymore! I even became a tad playful before my time in foster care ended, so look out!",
+            "Meet the ever-glamorous Sunny. Like most celebrities, she’s reclusive and prefers a quiet environment. Elizabeth is also very shy and will require someone with patience. However, she is not shy when it’s time for cat treats! Elizabeth is a strict pescatarian, enjoying the finest fish and seafood. She also enjoys living her best life playing with her favorite toy balls. This exquisite girl has the most beautiful markings with a black whip-like tail and bangs. She is a glamorous girl and is looking for her up upscale forever home.",
             label,
             "https://g.petango.com/photos/401/ef5ae40c-07d8-4532-b415-8df57a991048_TN1.jpg"
         )

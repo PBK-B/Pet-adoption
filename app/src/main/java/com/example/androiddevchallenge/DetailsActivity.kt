@@ -15,6 +15,7 @@
  */
 package com.example.androiddevchallenge
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -50,6 +51,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.androiddevchallenge.ui.theme.MyTheme
@@ -57,11 +59,39 @@ import dev.chrisbanes.accompanist.glide.GlideImage
 
 class DetailsActivity : AppCompatActivity() {
 
+    companion object {
+        fun actionStart(pet: Pet) {
+
+            val context = BaseApplication.getContext()
+            val intent = Intent(context, DetailsActivity::class.java)
+            intent.putExtra("name", pet.name)
+            intent.putExtra("gender", pet.gender)
+            intent.putExtra("variety", pet.variety)
+            intent.putExtra("description", pet.description)
+            intent.putExtra("image", pet.image)
+
+            ContextCompat.startActivity(context, intent, null)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val name = intent.getStringExtra("name")
+        name ?: finish()
+        val gender = intent.getIntExtra("gender", 0)
+        if (gender == 0) finish()
+        val variety = intent.getStringExtra("variety")
+        variety ?: finish()
+        val description = intent.getStringExtra("description")
+        description ?: finish()
+        val image = intent.getStringExtra("image")
+        image ?: finish()
+
+        val pet = Pet(name!!, gender, variety!!, description!!, ArrayList<String>(), image!!)
         setContent {
             MyTheme {
-                DetailsMyApp(Pet("这是一条长腿猫", 1, "长腿喵", "", ArrayList<String>(), ""))
+                DetailsMyApp(pet)
             }
         }
     }
@@ -95,7 +125,7 @@ fun LabelTab(
 fun DetailsUserCard(
     modifier: Modifier? = Modifier,
     user: UserInfo,
-    description: String = "这是一条很长很长的描述…",
+    description: String = "…",
 ) {
     Column(modifier = modifier!!) {
         Row() {
@@ -117,17 +147,17 @@ fun DetailsUserCard(
                     .weight(1f)
                     .padding(start = 15.dp)
             ) {
-                Text(text = "好傻好天真", color = Color(0xFF000000), fontSize = 14.sp)
-                Text(text = "发布者", color = Color(0x30000000), fontSize = 12.sp)
+                Text(text = "PBK Bin", color = Color(0xFF000000), fontSize = 14.sp)
+                Text(text = "Publisher", color = Color(0x30000000), fontSize = 12.sp)
             }
 
             Column() {
-                Text(text = "1 天前", color = Color(0x60000000), fontSize = 12.sp)
+                Text(text = "1 day ago", color = Color(0x60000000), fontSize = 12.sp)
             }
         }
 
         Text(
-            text = "描述：$description",
+            text = "Description：$description",
             color = Color(0x60000000),
             fontSize = 12.sp,
             lineHeight = 18.sp,
@@ -170,9 +200,14 @@ fun DetailsMyApp(pet: Pet) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
         Column {
 
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
-                contentDescription = "",
+            GlideImage(
+                data = pet.image,
+                contentDescription = "review image",
+                requestBuilder = {
+                    val options = RequestOptions()
+                    options.centerCrop()
+                    apply(RequestOptions.bitmapTransform(RoundedCorners(50)))
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(240.dp),
@@ -201,7 +236,7 @@ fun DetailsMyApp(pet: Pet) {
 
                 Row() {
                     Column(modifier = Modifier.weight(0.7f)) {
-                        Text(text = "这是宠物的名字…", fontWeight = FontWeight.Bold, color = Color.Black)
+                        Text(text = pet.name, fontWeight = FontWeight.Bold, color = Color.Black)
 
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
@@ -253,42 +288,43 @@ fun DetailsMyApp(pet: Pet) {
 
                 Row(modifier = Modifier.padding(top = 15.dp)) {
                     LabelTab(
-                        title = "已打疫苗",
+                        title = "Vaccinated",
                         color = Color(0xFF5566FF),
                         backgroundColor = Color(0x405566FF)
                     )
 
                     LabelTab(
-                        title = "已驱虫",
+                        title = "Deworming",
                         color = Color(0xFFfe766c),
                         backgroundColor = Color(0x40fe766c)
                     )
                 }
             }
 
-            PreviewImages(images = getImageTestData())
+            PreviewImages(images = getImageTestData(pet.image))
 
             Divider(color = Color(0xFFF2F2F2), modifier = Modifier.padding(horizontal = 15.dp))
 
             DetailsUserCard(
                 Modifier.padding(horizontal = 15.dp, vertical = 15.dp),
                 UserInfo("好傻好天真", "http://cos.haxibiao.com/images/60371a662a039.png"),
-                description = "这是一条很长很长的描述…这是一条很长很长的描述…这是一条很长很长的描述…这是一条很长很长的描述…这是一条很长很长的描述…这是一条很长很长的描述…这是一条很长很长的描述…这是一条很长很长的描述…这是一条很长很长的描述…这是一条很长很长的描述…这是一条很长很长的描述…这是一条很长很长的描述…这是一条很长很长的描述…这是一条很长很长的描述…"
+                description = pet.description
             )
         }
     }
 }
 
-fun getImageTestData(): List<String> {
+fun getImageTestData(image: String = "http://cos.haxibiao.com/images/60371a662a039.png"): List<String> {
     val images = ArrayList<String>()
-    images.add("http://cos.haxibiao.com/images/60371a662a039.png")
-    images.add("http://cos.haxibiao.com/images/60371a662a039.png")
-    images.add("http://cos.haxibiao.com/images/60371a662a039.png")
-    images.add("http://cos.haxibiao.com/images/60371a662a039.png")
-    images.add("http://cos.haxibiao.com/images/60371a662a039.png")
-    images.add("http://cos.haxibiao.com/images/60371a662a039.png")
-    images.add("http://cos.haxibiao.com/images/60371a662a039.png")
-    images.add("http://cos.haxibiao.com/images/60371a662a039.png")
+    images.add(image)
+    images.add(image)
+    images.add(image)
+    images.add(image)
+    images.add(image)
+    images.add(image)
+    images.add(image)
+    images.add(image)
+    images.add(image)
     return images
 }
 
